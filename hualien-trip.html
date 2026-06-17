@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>洄瀾三日 ｜ 花蓮自駕 6/19–6/21</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ocean: #1a4a5c;
+    --ocean-mid: #2a6f8a;
+    --sky: #a8d5e8;
+    --sky-light: #e8f4f9;
+    --stone: #6b7c6e;
+    --moss: #4a6741;
+    --moss-light: #e8f0e5;
+    --sand: #f5f0e8;
+    --sand-dark: #e0d8cc;
+    --amber: #c8813a;
+    --amber-light: #fdf0e0;
+    --text-dark: #1e2820;
+    --text-mid: #4a5548;
+    --text-light: #7a8878;
+    --white: #ffffff;
+    --radius: 6px;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 300;
+    background: var(--sand);
+    color: var(--text-dark);
+    line-height: 1.7;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--ocean);
+    color: var(--white);
+    padding: 72px 24px 56px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 120%, rgba(42,111,138,0.55) 0%, transparent 70%);
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    color: var(--sky);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    position: relative;
+  }
+  .hero h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(34px, 6vw, 58px);
+    font-weight: 600;
+    line-height: 1.15;
+    margin-bottom: 14px;
+    position: relative;
+  }
+  .hero-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 0.08em;
+    position: relative;
+    margin-bottom: 36px;
+  }
+  .hero-tags {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    position: relative;
+  }
+  .hero-tag {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.22);
+    color: var(--sky);
+    font-size: 12px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+  }
+
+  /* NAV */
+  .day-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--ocean);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: center;
+  }
+  .day-nav a {
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    font-size: 13px;
+    padding: 12px 22px;
+    letter-spacing: 0.06em;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .day-nav a:hover { color: var(--white); border-bottom-color: var(--sky); }
+
+  /* LAYOUT */
+  .container { max-width: 780px; margin: 0 auto; padding: 0 20px; }
+
+  /* LEGEND */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin: 36px 0 0;
+    padding: 12px 16px;
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--sand-dark);
+  }
+  .legend-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--text-mid); }
+  .legend-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+
+  /* DAY SECTION */
+  .day-section { padding: 52px 0 0; }
+  .day-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 28px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--sand-dark);
+  }
+  .day-num {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    color: var(--ocean-mid);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .day-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-dark);
+    line-height: 1.3;
+  }
+  .day-subtitle { font-size: 13px; color: var(--text-light); margin-top: 3px; }
+
+  /* ALERT */
+  .alert {
+    background: var(--amber-light);
+    border-left: 3px solid var(--amber);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #6b4010;
+    margin-bottom: 28px;
+    line-height: 1.65;
+  }
+  .alert strong { font-weight: 500; }
+
+  /* TIMELINE */
+  .tl-item {
+    display: grid;
+    grid-template-columns: 52px 1px 1fr;
+    gap: 0 16px;
+    margin-bottom: 0;
+  }
+  .tl-time {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-light);
+    letter-spacing: 0.05em;
+    padding-top: 14px;
+    text-align: right;
+    line-height: 1;
+  }
+  .tl-line { display: flex; flex-direction: column; align-items: center; }
+  .tl-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--sand-dark);
+    border: 2px solid var(--sand);
+    outline: 1.5px solid var(--sand-dark);
+    margin-top: 12px;
+    flex-shrink: 0;
+    z-index: 1;
+  }
+  .tl-dot.food      { background: #c8631a; outline-color: #c8631a; }
+  .tl-dot.activity  { background: var(--moss); outline-color: var(--moss); }
+  .tl-dot.hotel     { background: #6b5baa; outline-color: #6b5baa; }
+  .tl-dot.transport { background: var(--stone); outline-color: var(--stone); }
+  .tl-dot.bar       { background: var(--amber); outline-color: var(--amber); }
+  .tl-connector { width: 1px; flex: 1; background: var(--sand-dark); min-height: 16px; }
+  .tl-content { padding: 8px 0 20px; }
+  .tl-item:last-child .tl-content { padding-bottom: 8px; }
+
+  .tl-label {
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--text-dark);
+    line-height: 1.4;
+    margin-bottom: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+  }
+  .badge {
+    font-size: 10px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 10px;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+  .badge-warn   { background: #fef3cd; color: #8a5a00; border: 1px solid #f5d78a; }
+  .badge-ok     { background: var(--moss-light); color: var(--moss); border: 1px solid #c0d4bb; }
+  .badge-info   { background: var(--sky-light); color: var(--ocean); border: 1px solid var(--sky); }
+  .badge-booked { background: #e8f4e8; color: #2a6a2a; border: 1px solid #a8d4a8; }
+
+  .tl-note {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.65;
+    margin-bottom: 10px;
+  }
+  .tl-note .hl { color: var(--ocean-mid); font-weight: 500; }
+
+  /* PHOTO */
+  .tl-photo {
+    width: 100%;
+    max-width: 420px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: var(--radius);
+    display: block;
+    background: var(--sand-dark);
+  }
+  .tl-photo-caption {
+    font-size: 11px;
+    color: var(--text-light);
+    margin-top: 5px;
+    letter-spacing: 0.03em;
+  }
+
+  /* DIVIDER */
+  .section-divider { border: none; border-top: 1px solid var(--sand-dark); margin: 0; }
+
+  /* FOOTER */
+  footer {
+    background: var(--ocean);
+    color: rgba(255,255,255,0.45);
+    text-align: center;
+    padding: 32px 24px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    margin-top: 64px;
+  }
+  footer span { color: var(--sky); }
+
+  @media (max-width: 520px) {
+    .hero { padding: 48px 18px 36px; }
+    .day-nav a { padding: 11px 13px; font-size: 12px; }
+    .tl-photo { height: 160px; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <p class="hero-eyebrow">自駕旅遊 · 四人成行</p>
+  <h1>洄瀾三日</h1>
+  <p class="hero-sub">2025年 6月 19日（四）— 6月 21日（六）</p>
+  <div class="hero-tags">
+    <span class="hero-tag">淡水出發</span>
+    <span class="hero-tag">靜樹湖民宿</span>
+    <span class="hero-tag">美食 × 玩水 × 網美</span>
+    <span class="hero-tag">蘇花改自駕</span>
+  </div>
+</section>
+
+<nav class="day-nav">
+  <a href="#day1">Day 1 出發日</a>
+  <a href="#day2">Day 2 壽豐玩水</a>
+  <a href="#day3">Day 3 返程</a>
+</nav>
+
+<div class="container">
+
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot" style="background:#c8631a"></span>美食</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#4a6741"></span>景點活動</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#c8813a"></span>小酒</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#6b5baa"></span>住宿</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#6b7c6e"></span>交通</div>
+  </div>
+
+  <!-- ══ DAY 1 ══ -->
+  <section class="day-section" id="day1">
+    <div class="day-header">
+      <div>
+        <div class="day-num">Day 01 · 6/19（四）</div>
+        <div class="day-title">出發日</div>
+        <div class="day-subtitle">淡水 → 南港 → 花蓮市 → 壽豐靜樹湖</div>
+      </div>
+    </div>
+
+    <!-- 07:00 -->
+    <div class="tl-item">
+      <div class="tl-time">07:00</div>
+      <div class="tl-line"><div class="tl-dot transport"></div><div class="tl-connector"></div></div>
+      <div class="tl-content">
+        <div class="tl-label">從淡水出發</div>
+      </div>
+    </div>
+
+    <!-- 08:00 -->
+    <div class="tl-item">
+      <div class="tl-time">08:00</div>
+      <div class="tl-line"><div class="tl-dot transport"></div><div class="tl-connector"></div></div>
+      <div class="tl-content">
+        <div class="tl-label">南港高鐵站接朋友</div>
+      </div>
+    </div>
+
+    <!-- 11:30 -->
+    <div class="tl-item">
+      <div class="tl-time">11:30</div>
+      <div class="tl-line"><div class="tl-dot transport"></div><div class="tl-connector"></div></div>
+      <div class="tl-content">
+        <div class="tl-label">抵達花蓮市區 <span class="badge badge-info">蘇花改約 3.5 小時</span></div>
+      </div>
+    </div>
+
+    <!-- 定置漁場 -->
+    <div class="tl-item">
+      <div class="tl-time">11:45</div>
+      <div class="tl-line"><div class="tl-dot food"></div><div class="tl-connector"></div></div>
+      <div class="tl-content">
+        <div class="tl-label">🍜 定置漁場三代目 The Fishery <span class="badge badge-warn">先去領號碼牌</span></div>
+        <div class="tl-note">建國路 23 號｜11:45 開始登記，12:00 入座。<span class="hl">無法預約，現場候位</span>，限量供應早到早吃到。魚骨熬湯底，招牌柚子胡椒麵、七星潭炸魚必點</div>
+        <img class="tl-photo" src="images/fishery.jpg" alt="定置漁場三代目">
+      </div>
+    </div>
+
+    <!-- 找到了可頌 -->
+    <div class="tl-item">
+      <div class="tl-time">13:30</div>
+      <div class="tl-line"><div class="tl-dot food"></div><div class="tl-connector"></div></div>
+      <div class="tl-content">
+        <div class="tl-label">🥐 找到了可頌小売所 <span class="badge badge-warn">13:30 前到領號</span></div>
+        <div class="tl-note">菁華街 35 巷 1 弄 18 號｜14:00–17:30，週日一公休。吃完定置漁場步行約 12 分鐘，<span class="hl">每天限量約 240 個</span>，賣完為止</div>
+        <img class="tl-photo" src="images/croissant.jpg" alt="找到了可頌小売所">
+      </div>
+    </div>
+
+    <!-- 炸蛋蔥油餅 + 福建街香腸 -->
+    <div class="tl-item">
+      <div class="tl-time">14:30</div>
+      <div class="tl-line"><div class="tl-dot food"></div><div class="tl-connector"></div></div>
+      <div class="tl-content">
+        <div class="tl-label">🧅 炸蛋蔥油餅黃車 ＋ 🌭 福建街香腸</div>
+        <div class="tl-note">復興街 102 號（黃車）& 福建街 205 號（香腸）｜兩攤步行 3 分鐘，當下午點心一次解決。香腸 13:30–18:30，週二公休</div>
+        <img class="tl-photo" src="images/scallion-pancake.jpg" alt="炸蛋蔥油餅黃車">
+      </div>
+    </div>
+
+    <!-- 靜樹湖 check in -->
+    <div class="tl-item">
+      <div class="tl-time">15:00</div>
+      <div class="tl-line"><div class="tl-dot hotel"></div><div class="tl-connector"></div></div>
+      <div class="tl-content">
+        <div class="tl-label">🏡 前往靜樹湖 Check in</div>
+        <div class="tl-note">壽豐鄉樹湖村荖山 43-10 號｜從市區開車約 30 分鐘，Check in 16:00。清水模建築，落羽松湖畔</div>
+        <img class="tl-photo" src="images/jingshuhu.jpg" alt="靜樹湖民宿">
+      </div>
+    </div>
+
+    <!-- 獨木舟 -->
+    <div class="tl-item">
+      <div class="tl-time">17:00</div>
+      <div class="tl-line"><div class="tl-dot activity"></div><div class="tl-connector"></div></div>
+      <div class="tl-content">
+        <div class="tl-label">🛶 民宿獨木舟活動 <span class="badge badge-booked">民宿安排</span></div>
+        <div class="tl-note">落羽松湖畔划獨木舟約 1 小時，黃昏光線最美，記得帶相機拍湖面倒影</div>
+      </div>
+    </div>
+
+    <!-- 植地 -->
+    <div class="tl-item">
+      <div class="tl-time">19:00</div>
+      <div class="tl-line"><div class="tl-dot food"></div><div class="tl-connector"></div></div>
+      <div class="tl-content">
+        <div class="tl-label">🌿 植地 living room <span class="badge badge-booked">已訂位</span></div>
+        <div class="tl-note">介林六街 83 號｜季節蔬食料理，預約制。從壽豐開車約 20 分鐘，大量使用花蓮在地食材</div>
+        <img class="tl-photo" src="images/livingroom.jpg" alt="植地 living room">
+      </div>
+    </div>
+
+    <!-- 胖嘟嘟臭豆腐 -->
+    <div class="tl-item">
+      <div class="tl-time">21:00</div>
+      <div class="tl-line"><div class="tl-dot food"></div><div class="tl-connector"></div></div>
+      <div class="tl-content">
+        <div class="tl-label">🦨 胖嘟嘟臭豆腐 <span class="badge badge-info">宵夜順路</span></div>
+        <div class="tl-note">中山路 392 號｜16:30–23:00（週日～四），韭菜、皮蛋口味必試，植地結束後順路吃完再回靜樹湖</div>
+        <img class="tl-photo" src="images/stinky-tofu.jpg" alt="胖嘟嘟臭豆腐">
+      </div>
+    </div>
+
+  </section>
+
+  <hr class="section-divider" style="margin-top: 48px;">
+
+  <!-- ══ DAY 2 ══ -->
+  <section class="day-section" id="day2">
+    <div class="day-header">
+      <div>
+        <div class="day-num">Day 02 · 6/20（五）</div>
+        <div class="day-title">壽豐玩水日</div>
+        <div class="day-subtitle">白鮑溪 → 小和好點 → 雲山水 → 月廬食堂 → Settle Down</div>
+      </div>
+    </div>
+
+    <div class="alert">
+      <strong>⚠️ 行前確認</strong>｜月廬食堂請提前電話訂位 <strong>03-876-2206</strong>，訂位時同步預訂梅子烤雞。Settle Down 出發前先致電確認當日營業時間。
+    </div>
+
+    <!-- 早餐 -->
+    <div class="tl-item">
+      <div class="tl-time">07:30</div>
+      <div class="tl-line"><div class="tl-dot food"></div><div class="tl-connector"></div></div>
+      <div class="tl-content">
+        <div class="tl-label">☀️ 民宿早餐</div>
+        <div class="tl-note">享用早餐，欣賞清晨山嵐與湖面倒影，拍一組晨光照</div>
+      </div>
+    </div>
+
+    <!-- 白鮑溪 -->
+    <div class="tl-item">
+      <div class="tl-time">09:00</div>
+      <div class="tl-line"><div class="tl-dot activity"></div><div class="tl-connector"></div></div>
+      <div class="tl-content">
+        <div class="tl-label">🏞 白鮑溪戲水 <span class="badge badge-ok">必玩</span></div>
+        <div class="tl-note">荖溪橋南側叉路進入，從民宿開車約 10 分鐘｜午後有陣雨，<span class="hl">早上來最佳</span>！記得帶換洗衣物、防蚊液、飲水（附近無超商）。溪水碧綠清澈，可撿豐田玉石</div>
+        <img class="tl-photo" src="images/baibao-creek.jpg" alt="白鮑溪戲水">
+      </div>
+    </div>
+
+    <!-- 換裝 -->
+    <div class="tl-item">
+      <div class="tl-time">11:30</div>
+      <div class="tl-line"><div class="tl-dot transport"></div><div class="tl-connector"></div></div>
+      <div class="tl-content">
+        <div class="tl-label">回民宿換裝、整理</div>
+      </div>
+    </div>
+
+    <!-- 小和好點 -->
+    <div class="tl-item">
+      <div class="tl-time">13:45</div>
+      <div class="tl-line"><div class="tl-dot food"></div><div class="tl-connector"></div></div>
+      <div class="tl-content">
+        <div class="tl-label">🥐 小和好點 dot.dot. Bakery & Cafe <span class="badge badge-warn">13:50 前到排隊</span></div>
+        <div class="tl-note">壽豐鄉平和一街 119 號｜14:00–18:00，<span class="hl">週三四公休，6/20 週五 ✅</span>。雪山肉桂捲必點，每人限購 2 個，內用低消一杯飲料</div>
+        <img class="tl-photo" src="images/dotdot-bakery.jpg" alt="小和好點肉桂捲">
+      </div>
+    </div>
+
+    <!-- 雲山水 -->
+    <div class="tl-item">
+      <div class="tl-time">15:30</div>
+      <div class="tl-line"><div class="tl-dot activity"></div><div class="tl-connector"></div></div>
+      <div class="tl-content">
+        <div class="tl-label">📸 雲山水夢幻湖</div>
+        <div class="tl-note">壽豐鄉豐坪路二段 2 巷，<span class="hl">免費入場，24 小時開放</span>｜距小和好點約 15 分鐘車程。落羽松瀑布、跳石步道超好拍，留 1–1.5 小時。記得帶防蚊液</div>
+        <img class="tl-photo" src="images/yunshanshui.jpg" alt="雲山水夢幻湖">
+      </div>
+    </div>
+
+    <!-- 開車月廬 -->
+    <div class="tl-item">
+      <div class="tl-time">17:00</div>
+      <div class="tl-line"><div class="tl-dot transport"></div><div class="tl-connector"></div></div>
+      <div class="tl-content">
+        <div class="tl-label">🚗 開車前往鳳林月廬 <span class="badge badge-info">約 30 分鐘</span></div>
+      </div>
+    </div>
+
+    <!-- 月廬食堂 -->
+    <div class="tl-item">
+      <div class="tl-time">17:30</div>
+      <div class="tl-line"><div class="tl-dot food"></div><div class="tl-connector"></div></div>
+      <div class="tl-content">
+        <div class="tl-label">🍗 遺忘的故鄉 月廬食堂 <span class="badge badge-booked">已預約</span></div>
+        <div class="tl-note">鳳林鎮鳳鳴一路 71 號｜招牌<span class="hl">炭燒梅子烤雞 ＋ 梅汁山苦瓜 ＋ 芝麻牛蒡酥</span>必點。可遠眺花東縱谷夕陽，隱身山林秘境景觀餐廳</div>
+        <img class="tl-photo" src="images/yuelu.jpg" alt="月廬食堂梅子烤雞">
+      </div>
+    </div>
+
+    <!-- 開車回市區 -->
+    <div class="tl-item">
+      <div class="tl-time">20:00</div>
+      <div class="tl-line"><div class="tl-dot transport"></div><div class="tl-connector"></div></div>
+      <div class="tl-content">
+        <div class="tl-label">🚗 開車回花蓮市區 <span class="badge badge-info">約 40 分鐘</span></div>
+        <div class="tl-note">月廬（鳳林）→ Settle Down（花蓮市）→ 靜樹湖（壽豐），由南往北，動線順暢不繞路</div>
+      </div>
+    </div>
+
+    <!-- Settle Down -->
+    <div class="tl-item">
+      <div class="tl-time">21:00</div>
+      <div class="tl-line"><div class="tl-dot bar"></div><div class="tl-connector"></div></div>
+      <div class="tl-content">
+        <div class="tl-label">🍺 Settle Down</div>
+        <div class="tl-note">中華路 178-1 號（中華路 × 信義街口）｜台灣精釀啤酒為主，共 16 支生啤龍頭，空間寬敞有 2 樓，也有咖啡、抹茶等無酒精選項。<span class="hl">出發前致電確認營業時間</span></div>
+        <img class="tl-photo" src="images/settledown.jpg" alt="Settle Down 精釀啤酒吧">
+      </div>
+    </div>
+
+    <!-- 回民宿 -->
+    <div class="tl-item">
+      <div class="tl-time">23:00</div>
+      <div class="tl-line"><div class="tl-dot hotel"></div><div class="tl-connector"></div></div>
+      <div class="tl-content">
+        <div class="tl-label">🏡 回靜樹湖 <span class="badge badge-warn">指定司機勿飲酒</span></div>
+        <div class="tl-note">從花蓮市開車約 30 分鐘回壽豐，仰望滿天星斗入眠</div>
+      </div>
+    </div>
+
+  </section>
+
+  <hr class="section-divider" style="margin-top: 48px;">
+
+  <!-- ══ DAY 3 ══ -->
+  <section class="day-section" id="day3">
+    <div class="day-header">
+      <div>
+        <div class="day-num">Day 03 · 6/21（六）</div>
+        <div class="day-title">退房返程日</div>
+        <div class="day-subtitle">壽豐 → 宜蘭 → 南港 → 淡水</div>
+      </div>
+    </div>
+
+    <div class="alert">
+      <strong>⚠️ 週六蘇花改有輪放管制</strong>｜10 點前出發最順暢，避開北返車流尖峰。宜蘭農權路吃完順便加油再上國 5。
+    </div>
+
+    <!-- 早餐 -->
+    <div class="tl-item">
+      <div class="tl-time">08:00</div>
+      <div class="tl-line"><div class="tl-dot food"></div><div class="tl-connector"></div></div>
+      <div class="tl-content">
+        <div class="tl-label">☀️ 民宿早餐</div>
+        <div class="tl-note">最後一個清晨，享用早餐，拍拍落羽松晨光</div>
+      </div>
+    </div>
+
+    <!-- 退房 -->
+    <div class="tl-item">
+      <div class="tl-time">10:00</div>
+      <div class="tl-line"><div class="tl-dot hotel"></div><div class="tl-connector"></div></div>
+      <div class="tl-content">
+        <div class="tl-label">🏡 退房，整理行李出發</div>
+        <div class="tl-note">Check out 時間 12:00，但建議 10 點前上路</div>
+      </div>
+    </div>
+
+    <!-- 蘇花改 -->
+    <div class="tl-item">
+      <div class="tl-time">10:15</div>
+      <div class="tl-line"><div class="tl-dot transport"></div><div class="tl-connector"></div></div>
+      <div class="tl-content">
+        <div class="tl-label">🚗 走台 9 線 → 蘇花改北上</div>
+        <div class="tl-note">注意輪放號誌，進隧道前確認車況油量</div>
+      </div>
+    </div>
+
+    <!-- 農權路炸醬麵 -->
+    <div class="tl-item">
+      <div class="tl-time">12:30</div>
+      <div class="tl-line"><div class="tl-dot food"></div><div class="tl-connector"></div></div>
+      <div class="tl-content">
+        <div class="tl-label">🍜 宜蘭農權路炸醬麵 <span class="badge badge-info">午餐</span></div>
+        <div class="tl-note">出蘇花改後進宜蘭市區，農權路一帶老字號。吃完順便加油，再上國 5 返台北</div>
+        <img class="tl-photo" src="images/nongquan-noodles.jpg" alt="宜蘭農權路炸醬麵">
+      </div>
+    </div>
+
+    <!-- 返台北 -->
+    <div class="tl-item">
+      <div class="tl-time">14:00</div>
+      <div class="tl-line"><div class="tl-dot transport"></div><div class="tl-connector"></div></div>
+      <div class="tl-content">
+        <div class="tl-label">🚗 上國 5，返回台北 → 南港 → 淡水</div>
+        <div class="tl-note">約 1.5 小時抵台北，結束三天美好的洄瀾之旅 🌊</div>
+      </div>
+    </div>
+
+  </section>
+
+</div>
+
+<footer>
+  <p>洄瀾三日 · 花蓮自駕行程 · 2025 年 6 月</p>
+  <p style="margin-top:6px;">住宿：<span>靜樹湖民宿</span>｜壽豐鄉樹湖村荖山 43-10 號</p>
+</footer>
+
+</body>
+</html>
