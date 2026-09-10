@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#075b65" />
+  <meta name="description" content="航旅雷達：個人機票價格監看工具" />
+  <title>航旅雷達｜機票價格監看</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#home" aria-label="航旅雷達首頁"><b>✦</b><span>航旅雷達<small>FLIGHT RADAR</small></span></a>
+      <nav class="desktop-nav" aria-label="主選單">
+        <button class="nav-link active" data-view="home">總覽</button>
+        <button class="nav-link" data-view="search">搜尋與比價</button>
+        <button class="nav-link" data-view="watchlist">我的監看</button>
+      </nav>
+      <div class="top-actions"><button class="notice" id="notificationButton" aria-label="查看通知">♧<i id="notificationBadge">1</i></button><button class="avatar" aria-label="帳號">林</button></div>
+    </header>
+
+    <main>
+      <section class="view active" id="home">
+        <div class="dashboard-title"><div><p class="eyebrow">FLIGHT PRICE WATCH</p><h1>早安，祖斌。</h1><p>這裡是你正在留意的好價格。</p></div><button class="primary" id="newWatchHome">＋ 新增監看</button></div>
+        <div class="quick-search">
+          <div><label>出發地<input id="quickOrigin" value="台北（TPE）" /></label><button class="swap" id="swapQuick" aria-label="交換出發地與目的地">⇄</button><label>目的地<input id="quickDestination" value="東京（NRT）" /></label></div>
+          <div><label>去程<input id="quickDeparture" type="date" value="2026-11-12" /></label><label>回程<input id="quickReturn" type="date" value="2026-11-17" /></label><button class="primary" id="quickSearch">搜尋機票</button></div>
+        </div>
+        <div class="stats" id="stats"></div>
+        <div class="section-title"><div><p class="eyebrow">WATCHING NOW</p><h2>正在監看的旅程</h2></div><button class="quiet" data-view="watchlist">查看全部 →</button></div>
+        <div class="watch-grid" id="homeWatches"></div>
+        <div class="bottom-grid"><article class="insight"><div class="sun">☼</div><div><p class="eyebrow">TRAVEL INTELLIGENCE</p><h3>東京的價格正在下降</h3><p>近 7 次觀測有 5 次低於你的預算。若能週二出發，選擇通常更多。</p><button class="light-button" data-view="watchlist">查看東京監看</button></div></article><article class="activity"><p class="eyebrow">RECENTLY FOUND</p><h3>最新價格動態</h3><div id="activityList"></div></article></div>
+      </section>
+
+      <section class="view" id="search">
+        <div class="page-title"><p class="eyebrow">FLIGHT SEARCH</p><h1>搜尋並比較航班</h1><p>先找到適合的航班，再前往熟悉的平台確認最終價格。</p></div>
+        <form id="searchForm" class="search-form">
+          <label>出發地<input id="origin" value="台北（TPE）" required /></label><button type="button" id="swapSearch" class="swap" aria-label="交換出發地與目的地">⇄</button><label>目的地<input id="destination" value="東京（NRT）" required /></label><label>去程<input id="departure" type="date" value="2026-11-12" required /></label><label>回程<input id="returnDate" type="date" value="2026-11-17" required /></label><label>旅客／艙等<select id="travellers"><option>1 位成人 · 經濟艙</option><option>2 位成人 · 經濟艙</option><option>1 位成人 · 豪華經濟艙</option></select></label><button class="primary" type="submit">搜尋</button>
+        </form>
+        <div class="results-top"><div><strong id="routeTitle">台北 → 東京</strong><span id="routeMeta">11/12 — 11/17 · 1 位成人</span></div><div class="chips"><button class="chip active">價格最低</button><button class="chip">直飛</button><button class="chip">含行李</button></div></div>
+        <div class="results-layout"><div class="offers" id="offers"></div><aside class="note"><b>ⓘ 報價說明</b><p>目前為介面示意資料。票價、稅金、行李與付款費用，請以導向平台的結帳頁為準。</p></aside></div>
+      </section>
+
+      <section class="view" id="watchlist">
+        <div class="dashboard-title"><div><p class="eyebrow">PRICE WATCHES</p><h1>我的監看</h1><p>出現好價格時，讓雷達先告訴你。</p></div><button class="primary" id="newWatch">＋ 新增監看</button></div>
+        <div class="tabs"><button class="chip active" data-filter="all">全部 <span id="allCount"></span></button><button class="chip" data-filter="target">已達標 <span id="targetCount"></span></button><button class="chip" data-filter="watching">監看中 <span id="watchCount"></span></button></div>
+        <div class="watch-grid large" id="watchGrid"></div>
+      </section>
+    </main>
+    <nav class="mobile-nav"><button class="nav-link active" data-view="home">⌂<span>總覽</span></button><button class="nav-link" data-view="search">⌕<span>搜尋</span></button><button class="nav-link" data-view="watchlist">♡<span>監看</span></button></nav>
+  </div>
+
+  <dialog id="watchDialog"><form id="watchForm"><button type="button" class="close" id="closeDialog" aria-label="關閉">×</button><p class="eyebrow">NEW PRICE WATCH</p><h2>建立價格監看</h2><p class="dialog-copy">當票價低於你的預算，就會出現在通知中心。</p><div class="form-grid"><label>出發地<input id="watchOrigin" value="台北（TPE）" required /></label><label>目的地<input id="watchDestination" placeholder="例如：大阪（KIX）" required /></label><label>去程<input id="watchDeparture" type="date" value="2026-12-04" required /></label><label>回程<input id="watchReturn" type="date" value="2026-12-08" required /></label><label>目標總價（TWD）<input id="watchTarget" type="number" min="1" value="9000" required /></label><label>偏好<select id="watchDirect"><option>不限轉機</option><option>只看直飛</option></select></label></div><label class="check"><input type="checkbox" checked /> 降到目標價時通知我</label><button class="primary full" type="submit">開始監看</button></form></dialog>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
