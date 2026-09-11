@@ -1,6 +1,15 @@
 'use strict';
 const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),money=n=>new Intl.NumberFormat('zh-TW',{style:'currency',currency:'TWD',maximumFractionDigits:0}).format(n);
-const KEY='flight-radar-v2', airports={'TPE':'台北桃園','TSA':'台北松山','KHH':'高雄','NRT':'東京成田','HND':'東京羽田','KIX':'大阪關西','BKK':'曼谷','ICN':'首爾仁川','SIN':'新加坡','KEF':'冰島凱夫拉維克'};
+const KEY='flight-radar-v2', airports={
+  // 台灣與港澳
+  'TPE':'台北桃園','TSA':'台北松山','KHH':'高雄小港','RMQ':'台中清泉崗','HUN':'花蓮','MZG':'澎湖馬公','KIN':'金門','LZN':'馬祖南竿','HKG':'香港','MFM':'澳門',
+  // 日本、韓國與中國大陸
+  'NRT':'東京成田','HND':'東京羽田','KIX':'大阪關西','ITM':'大阪伊丹','NGO':'名古屋中部','FUK':'福岡','CTS':'札幌新千歲','OKA':'沖繩那霸','HIJ':'廣島','SDJ':'仙台','ICN':'首爾仁川','GMP':'首爾金浦','PUS':'釜山金海','CJU':'濟州','PEK':'北京首都','PKX':'北京大興','PVG':'上海浦東','SHA':'上海虹橋','CAN':'廣州白雲','SZX':'深圳寶安','XMN':'廈門高崎','CTU':'成都天府','CKG':'重慶江北','WUH':'武漢天河','XIY':'西安咸陽','KMG':'昆明長水',
+  // 東南亞、南亞與中東
+  'BKK':'曼谷素萬那普','DMK':'曼谷廊曼','CNX':'清邁','HKT':'普吉','SIN':'新加坡樟宜','KUL':'吉隆坡','PEN':'檳城','BKI':'亞庇','DPS':'峇里島登巴薩','CGK':'雅加達','SGN':'胡志明市','HAN':'河內','DAD':'峴港','MNL':'馬尼拉','CEB':'宿霧','VTE':'永珍','PNH':'金邊','RGN':'仰光','DEL':'德里','BOM':'孟買','BLR':'班加羅爾','CMB':'可倫坡','KTM':'加德滿都','DXB':'杜拜','AUH':'阿布達比','DOH':'杜哈','IST':'伊斯坦堡','TLV':'特拉維夫',
+  // 大洋洲、歐洲與美洲
+  'SYD':'雪梨','MEL':'墨爾本','BNE':'布里斯本','PER':'伯斯','AKL':'奧克蘭','CHC':'基督城','LHR':'倫敦希斯洛','LGW':'倫敦蓋特威克','CDG':'巴黎戴高樂','AMS':'阿姆斯特丹','FRA':'法蘭克福','MUC':'慕尼黑','ZRH':'蘇黎世','VIE':'維也納','FCO':'羅馬費米齊諾','MXP':'米蘭馬爾彭薩','BCN':'巴塞隆納','MAD':'馬德里','LIS':'里斯本','CPH':'哥本哈根','ARN':'斯德哥爾摩','OSL':'奧斯陸','HEL':'赫爾辛基','PRG':'布拉格','BUD':'布達佩斯','ATH':'雅典','KEF':'冰島凱夫拉維克','JFK':'紐約甘迺迪','EWR':'紐約紐華克','LAX':'洛杉磯','SFO':'舊金山','SEA':'西雅圖','ORD':'芝加哥歐海爾','DFW':'達拉斯沃斯堡','MIA':'邁阿密','YVR':'溫哥華','YYZ':'多倫多皮爾遜','MEX':'墨西哥城','GRU':'聖保羅','SCL':'聖地牙哥'
+};
 let state={version:2,watches:[],events:[],demo:false},page='home',filter='all',editing=null,selected=null,query=null;
 try{const saved=JSON.parse(localStorage.getItem(KEY));if(saved&&saved.version===2&&Array.isArray(saved.watches)&&Array.isArray(saved.events))state=saved}catch{setTimeout(()=>toast('無法讀取舊資料，請從備份匯入。'),0)}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch{toast('儲存失敗：請匯出備份，檢查瀏覽器儲存權限。')}}
